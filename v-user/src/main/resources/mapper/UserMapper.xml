@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.shop.user.mapper.UserMapper">
+    <select id="getUserByUsername" resultType="cn.itcast.shop.pojo.User" parameterType="string">
+        SELECT * FROM user WHERE username=#{username}
+    </select>
+    <select id="getUserByEmail" resultType="cn.itcast.shop.pojo.User" parameterType="string">
+        SELECT * FROM user WHERE email=#{email}
+    </select>
+    
+    <delete id="deleteUserByEmail" parameterType="string">
+        DELETE * FROM user WHERE email=#{email}
+    </delete>
+    <update id="enableByEmail" parameterType="string">
+        UPDATE user SET state=1 WHERE email=#{email}
+    </update>
+    <insert id="addUser" parameterType="cn.itcast.shop.pojo.User">
+        INSERT INTO user (uid,username,password,email,state) VALUES
+        (#{uid},#{username},#{password},#{email},0)
+    </insert>
+</mapper>

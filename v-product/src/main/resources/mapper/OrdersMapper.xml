@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.shop.product.mapper.OrdersMapper">
+    <insert id="addOrders" parameterType="orders">
+        INSERT INTO orders (oid,ordertime,total,state,address,name,telephone,uid)
+        VALUES (#{oid},now(),#{total},0,#{address},#{name},#{telephone},#{uid})
+    </insert>
+
+    <select id="getOrdersById" parameterType="string" resultType="cn.itcast.shop.dto.OrdersDto">
+        SELECT * FROM orders WHERE oid=#{oid}
+    </select>
+
+    <select id="getOrdersByUid" parameterType="string" resultType="cn.itcast.shop.dto.OrdersDto">
+        SELECT * FROM orders WHERE uid=#{uid}
+    </select>
+
+    <update id="updateOrdersByOid" parameterType="orders">
+        UPDATE orders
+        <set>
+            <if test="total!=null and total!=''">
+                total=#{total},
+            </if>
+            <if test="state!=null">
+                state=#{state},
+            </if>
+            <if test="address!=null and address!=''">
+                address=#{address},
+            </if>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="telephone!=null and telephone!=''">
+                telephone=#{telephone},
+            </if>
+            <if test="uid!=null and uid!=''">
+                uid=#{uid},
+            </if>
+        </set>
+        <where>
+            oid=#{oid}
+        </where>
+    </update>
+</mapper>
